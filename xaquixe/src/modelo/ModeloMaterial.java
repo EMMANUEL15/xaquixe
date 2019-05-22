@@ -140,10 +140,9 @@ public class ModeloMaterial {
             PreparedStatement pstm = Conexion.prepareStatement("select * from xaquixe.proveedor_autorizado WHERE id_material = ? ");            
             pstm.setString(1,dato);
             ResultSet resultado = pstm.executeQuery();
-            ResultSetMetaData datos = pstm.getMetaData();
         //REGISTROS
             while (resultado.next()) {
-               provedores.add(resultado.getString(1));
+               provedores.add(resultado.getString(3));
             }
         }catch(Exception e){ }
         return provedores;

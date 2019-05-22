@@ -2,12 +2,10 @@ package vista;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -22,7 +20,7 @@ import javax.swing.ImageIcon;
 /**
  * @author Emanuel Lopez
  */
-public class panel_proveedor extends JFrame{
+public class panel_proveedor extends JPanel{
     //DEFINICION DE CAMPOS DE TEXTO
     protected JTextField TextBuscar = new JTextField(20);
     protected JTextField campo1 = new JTextField();
@@ -53,9 +51,9 @@ public class panel_proveedor extends JFrame{
     private ArrayList<JTextField> camposTexto= new ArrayList<JTextField>();
     
     //DEFINICION DE FUENTES
-    Font fuente  = new Font("Bodoni Bd BT", Font.BOLD, 20);
+    /*Font fuente  = new Font("Bodoni Bd BT", Font.BOLD, 20);
     Font fuente2 = new Font("Bodoni", Font.ITALIC, 15);
-    Font fuente3 = new Font("Verdana", Font.BOLD,15);
+    Font fuente3 = new Font("Verdana", Font.BOLD,15);*/
     
     //DEFINICION DE PANEL
     private JPanel panelBusqueda = new JPanel();
@@ -78,11 +76,10 @@ public class panel_proveedor extends JFrame{
     * CONSTRUCTOR
     */
     public panel_proveedor(){
-        super("Proveedor");
         //COMPONENETES DEL PANEL DE BUAQUEDA
-            TextBuscar.setFont(fuente2);
+            //TextBuscar.setFont(fuente2);
             JLabel etiqueta = new JLabel("Proveedor:");
-            etiqueta.setFont(fuente);
+            //etiqueta.setFont(fuente);
             
         //PANEL DE BUSQUEDA
             panelBusqueda.add(etiqueta);
@@ -90,7 +87,7 @@ public class panel_proveedor extends JFrame{
             panelBusqueda.add(btnBuscar);
                
         //CONFIGURACION DE LA TABLA
-            table.setFont(fuente2);
+            //table.setFont(fuente2);
             table.setDragEnabled(false);
         //CONFIGURACION DEL ENCABEZADO DE LA TABLA
             JTableHeader th; 
@@ -121,8 +118,8 @@ public class panel_proveedor extends JFrame{
                     Columna1.setLayout(new GridLayout(2,1,5,5));
                     //Columna1.setLayout(new FlowLayout(FlowLayout.LEFT));
                     JLabel etiq = new JLabel(label[i]);
-                    etiq.setFont(fuente3);
-                    jtx.setFont(fuente3);
+                    //etiq.setFont(fuente3);
+                    //jtx.setFont(fuente3);
                     Columna1.add(etiq);
                     Columna1.add(jtx);
                     panelCampos.add(Columna1);
@@ -142,10 +139,10 @@ public class panel_proveedor extends JFrame{
             Acciones.setLayout(new GridLayout(1,1,5,5));
             Acciones.add(panelCampos); 
             
-            labelCorreo.setFont(fuente3);
+            /*labelCorreo.setFont(fuente3);
             labelTelefono.setFont(fuente3);
             tele.setFont(fuente3);
-            mail.setFont(fuente3);
+            mail.setFont(fuente3);*/
             
             JPanel panelCombox = new JPanel();
             panelCombox.add(labelCorreo);
@@ -168,11 +165,6 @@ public class panel_proveedor extends JFrame{
             add(PanelDatos,BorderLayout.CENTER);
             add(TextBotone,BorderLayout.SOUTH);
         
-        setSize(700,500);
-        setExtendedState(MAXIMIZED_BOTH);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
      /**
      * genera un mensaje

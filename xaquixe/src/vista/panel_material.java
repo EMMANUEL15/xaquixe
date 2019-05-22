@@ -1,12 +1,10 @@
 package vista;
 import java.awt.BorderLayout;
 import java.awt.Font;
-import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -15,12 +13,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import Componente.MyButton;
-import javax.swing.ImageIcon;
 /**
  * @author Emanuel Lopez
  */
-public class panel_material extends JFrame{
+public class panel_material extends JPanel{
     //DEFINICION DE CAMPOS DE TEXTO
     protected JTextField TextBuscar = new JTextField(20);
     protected JTextField campo1 = new JTextField();
@@ -60,7 +56,6 @@ public class panel_material extends JFrame{
     * componete general
     */
     public panel_material(){
-        super("Materiales");
         //COMPONENETES DEL PANEL DE BUAQUEDA
             TextBuscar.setFont(fuente2);
             JLabel etiqueta = new JLabel("Material:");
@@ -71,7 +66,7 @@ public class panel_material extends JFrame{
             panelBusqueda.add(TextBuscar);
             panelBusqueda.add(btnBuscar);
                
-        //CONFIGURACION DE LA TABLA
+        //CONFIGURACION DE LA TABLA 
             table.setFont(fuente2);
             table.setDragEnabled(false);
         //CONFIGURACION DEL ENCABEZADO DE LA TABLA
@@ -136,11 +131,6 @@ public class panel_material extends JFrame{
             add(PanelDatos,BorderLayout.CENTER);
             add(TextBotone,BorderLayout.SOUTH);
         
-        setSize(700,500);
-        setExtendedState(MAXIMIZED_BOTH);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
     /**
      * genera un mensaje
@@ -202,6 +192,9 @@ public class panel_material extends JFrame{
      * @param c- recibe un controlador para los eventos
      */
     public void conectaControlador(controlador.controladorMaterial c  ){
+        //campo de texto
+        TextBuscar.addActionListener(c);
+        TextBuscar.setActionCommand("BUSCAR");
         //botones
         btnBuscar.addActionListener(c);
         btnBuscar.setActionCommand("BUSCAR");
@@ -222,5 +215,6 @@ public class panel_material extends JFrame{
         btnProve.setActionCommand("UPPROVEDOR");
 	
         table.addMouseListener(c);
+        table.setName("materiales");
     }
 }

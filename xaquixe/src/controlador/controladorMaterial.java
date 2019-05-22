@@ -9,17 +9,29 @@ import java.awt.event.MouseListener;
 public class controladorMaterial implements ActionListener,MouseListener{
     private vista.panel_material vista;
     private modelo.ModeloMaterial modelo;
+    
+    private vista.panel_autorizacion vistAuto;
+    private modelo.ModeloAutorizacion modelAuto;
     private  int tuplaSelecionada;
     /**
      * contructor de controlador de materiales
      * @param view- panel que contiene los tabla, campos de texto y botones para los materiales
-     * @param model- contien metodos para insertar, eliminar, actualizar y buscar materiales en base de datos 
+     * @param model- contien metodos para insertar, eliminar, actualizar y buscar materiales en la base de datos 
      */
     public controladorMaterial(vista.panel_material view ,modelo.ModeloMaterial model){
         this.vista   = view;
 	this.modelo = model;
         this.vista.datos(modelo.Materiales());
         this.tuplaSelecionada = -1;
+    }
+    /**
+     * controlador de autorizacion
+     * @param viewA- panel que contiene los tabla de proveedores autorizados
+     * @param modelA- contien metodos para dar autorizacion a proveedores en la base de datos 
+     */
+    public void controladorAutorizacion(vista.panel_autorizacion viewA, modelo.ModeloAutorizacion modelA){
+        this.vistAuto = viewA;
+        this.modelAuto = modelA;
     }
     /**
      * controla lo eventos de la vista hacia el modelo
@@ -78,7 +90,18 @@ public class controladorMaterial implements ActionListener,MouseListener{
             break;
             case "NUEVO":
 		limpiar();
-		break;
+            break;
+            case "UPPROVEDOR":
+                if(tuplaSelecionada >= 0 ){
+                    vistAuto.setId_Material(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,0)));
+                    vistAuto.datosAutorizados(modelAuto.searchAutorizacion((String) vista.getTable().getValueAt(tuplaSelecionada,0)));
+                    vistAuto.setLocationRelativeTo(null);
+                    vistAuto.setVisible(true);
+                }else{this.vista.Mensaje("No ha selecionado ninguna tupla");  }
+            break;
+            case "BUSCAR_PROVEEDOR":
+                    
+            break;
             default:
                 
             break;

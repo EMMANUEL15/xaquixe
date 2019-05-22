@@ -1,7 +1,6 @@
 package vista;
 import java.awt.BorderLayout;
 import java.awt.Font;
-import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.io.File;
@@ -12,7 +11,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -27,7 +25,7 @@ import javax.swing.table.JTableHeader;
  *
  * @author Emanuel lopez
  */
-public class panel_producto extends JFrame{
+public class panel_producto extends JPanel{
  
     //DEFINICIÓN DE LOS CUADROS DE TEXTO
     protected JTextField TextBuscar = new JTextField(20);
@@ -71,7 +69,6 @@ public class panel_producto extends JFrame{
     * CONSTRUCTOR
     */
     public panel_producto(){
-        super("Producto");
         //COMPONENETES DEL PANEL DE BUAQUEDA
             TextBuscar.setFont(fuente2);
             JLabel etiqueta = new JLabel("Producto:");
@@ -121,11 +118,11 @@ public class panel_producto extends JFrame{
         //PANEL DE IMAGEN
             JPanel panelImagen = new JPanel();
             panelImagen.add(imagen);
-            panelImagen.add(btnImagen);
         //PANEL DE BOTONES
             JPanel aux = new JPanel();
             aux.add(panelBotones);
             panelBotones.setLayout(new GridLayout(5,1,5,5));
+            panelBotones.add(btnImagen);
             panelBotones.add(btnAgregar);
             panelBotones.add(btnEliminar);
             panelBotones.add(btnActualizar);
@@ -141,11 +138,6 @@ public class panel_producto extends JFrame{
             add(PanelDatos,BorderLayout.CENTER);
             add(detalles,BorderLayout.SOUTH);
         
-        setSize(700,500);
-        setExtendedState(MAXIMIZED_BOTH);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
      /**
      * Agrega una nueva imagen

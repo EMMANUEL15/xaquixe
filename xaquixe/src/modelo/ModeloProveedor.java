@@ -144,7 +144,7 @@ public class ModeloProveedor {
     }catch(Exception e){ }
      return dtm;
     }
-     /**
+    /**
      * busca los telefono de los proveedores
      * @param dato- recibe un cadena para buscar
      */
