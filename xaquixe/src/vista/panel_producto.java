@@ -113,8 +113,7 @@ public class panel_producto extends JPanel{
                     Columna1.add(jtx);
                     panelCampos.add(Columna1);
                     i++;
-                }
-                      
+                }     
         //PANEL DE IMAGEN
             JPanel panelImagen = new JPanel();
             panelImagen.add(imagen);

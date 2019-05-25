@@ -5,8 +5,6 @@
  */
 package xaquixe;
 
-import vista.VentanaPrincipal;
-
 /**
  * @author Emanuel lopez
  */
@@ -45,7 +43,7 @@ public class Xaquixe {
         vista_material.conectaControlador(controlador_material);
         vista_autorizacion.conectaControlador(controlador_autorizacion);
         
-    VentanaPrincipal V = new VentanaPrincipal();
+    vista.Vista_Principal V = new vista.Vista_Principal();
     controlador.controladorPrincipal CP = new controlador.controladorPrincipal(V);
     V.conectaControlador(CP);
     CP.cargarPaneles(vista_producto, vista_proveedor, vista_material);

@@ -5,12 +5,12 @@ import java.awt.event.ActionListener;
  * @author Emanuel Lopez
  */
 public class controladorPrincipal implements ActionListener{
-    private vista.VentanaPrincipal vista;
+    private vista.Vista_Principal vista;
     private vista.panel_producto vista_producto;
     private vista.panel_proveedor vista_proveedor;
     private vista.panel_material vista_material;
     
-    public controladorPrincipal(vista.VentanaPrincipal view){
+    public controladorPrincipal(vista.Vista_Principal view){
         this.vista   = view;
     }
     public void cargarPaneles(vista.panel_producto producto, vista.panel_proveedor proveedor,vista.panel_material material){
@@ -41,6 +41,11 @@ public class controladorPrincipal implements ActionListener{
             break;
             case "VENTAS":
                 System.out.println("ventas");
+            break;
+            case "CERRAR":
+                if(vista.confirmacion()){
+                    System.exit(0);
+                }
             break;
             default:
             break;

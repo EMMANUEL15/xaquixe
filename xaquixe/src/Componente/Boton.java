@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.border.Border;
 /**
@@ -68,6 +69,32 @@ public class Boton extends JButton {
         this.setBackground(new Color(223,225,230));         // Define el color del fondo del botón
         this.setForeground(Color.BLACK);                    // Define el color de la letra
         this.setSize(140, 40);                              //Define la Anchura y la Altura
+        
+        redondez=20;
+    }
+    /**
+     * constructor simple de un boton con texto 
+     * @param texto 
+     */
+    public Boton (String texto,String imagen) {
+        super(texto);                                       //Hereda el texto introducido en el constructor                             
+        //lineaNegra = BorderFactory.createLineBorder(Color.black); // Crea un borde de color Negro y se le asigna 
+        //this.setBorder(lineaNegra);
+        this.setContentAreaFilled(false);                   //. Si trueel botón pintará el área de contenido. 
+                                                            //Si desea tener un botón transparente, por ejemplo, un botón con solo icono, entonces debe configurarlo false. 
+                                                            //un botón con solo icono, entonces debe configurarlo false.
+        this.setOpaque(false);                               // Permite personalizar el diseño del botón
+        this.setFocusPainted(false);
+        this.setBorderPainted(false);
+        
+        this.setFont(new Font("Calibri Light",Font.BOLD,17));     // Define la fuente de la letra y el tamaño
+        this.setBackground(new Color(223,225,230));         // Define el color del fondo del botón
+        this.setForeground(Color.BLACK);                    // Define el color de la letra
+        
+        //imagen
+        ImageIcon img3 = new ImageIcon(imagen);
+        ImageIcon img4 = new ImageIcon(img3.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH));
+        this.setIcon(img4);
         
         redondez=20;
     }
