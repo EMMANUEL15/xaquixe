@@ -10,5 +10,4 @@ package vista;
  * @author akuer
  */
 public class Prueba {
-    
 }
