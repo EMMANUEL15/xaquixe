@@ -14,7 +14,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import Componente.MyButton;
 import javax.swing.ImageIcon;
 
 /**
@@ -69,9 +68,7 @@ public class panel_proveedor extends JPanel{
     private JComboBox tele = new JComboBox();
     private JComboBox mail = new JComboBox();
     
-    ImageIcon icono = new ImageIcon("imagenes/NoFound.png");
-    MyButton mi = new MyButton("XAQUIXE",icono,50,50);// NUEVO BOTON TIPO COMPONENTE **************************************
-    /**
+   /**
     * componete general
     * CONSTRUCTOR
     */
@@ -134,7 +131,6 @@ public class panel_proveedor extends JPanel{
             panelBotones.add(btnEliminar);
             panelBotones.add(btnActualizar);
             panelBotones.add(btnNuevo);
-            panelBotones.add(mi);   //BOTON COMPONONETE *****************************************************************
             
             Acciones.setLayout(new GridLayout(1,1,5,5));
             Acciones.add(panelCampos); 
@@ -270,9 +266,6 @@ public class panel_proveedor extends JPanel{
         
         mail.addActionListener(c);
 	mail.setActionCommand("CORREO");
-        // BOTON DE MANIC*************************************************************************************************
-        mi.addActionListener(c);
-        mi.setActionCommand("COMPONETE");
         // tabla
         table.addMouseListener(c);
     }

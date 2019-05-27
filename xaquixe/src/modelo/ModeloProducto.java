@@ -125,7 +125,7 @@ public class ModeloProducto {
     public DefaultTableModel searchProduct(String dato){
         DefaultTableModel dtm= new DefaultTableModel(registro,columnas);
     try{
-    PreparedStatement pstm = Conexion.prepareStatement("select * from xaquixe.producto WHERE UPPER(sku) like ? or UPPER(item) like ? or UPPER(medida like ?");            
+    PreparedStatement pstm = Conexion.prepareStatement("select * from xaquixe.producto WHERE UPPER(sku) like ? or UPPER(item) like ? or UPPER(medida) like ?");            
     pstm.setString(1,"%"+dato.toUpperCase()+"%");
     pstm.setString(2,"%"+dato.toUpperCase()+"%");
     pstm.setString(3,"%"+dato.toUpperCase()+"%");
