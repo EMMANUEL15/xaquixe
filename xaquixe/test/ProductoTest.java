@@ -4,23 +4,21 @@
  * and open the template in the editor.
  */
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-
-import org.junit.Test;
-import static org.junit.Assert.*;
+import junit.framework.TestSuite;
 
 /**
  *
- * @author equipo
+ * @author Emanuel Lopez
  */
 public class ProductoTest {
-    /*
-    public ProductoTest() {
-    }
     
+   public static junit.framework.Test suite() {
+
+        TestSuite suite = new TestSuite();
+
+        return suite;
+    }
+    /*
     @BeforeClass
     public static void setUpClass() {
     }
@@ -42,4 +40,7 @@ public class ProductoTest {
     //
     // @Test
     // public void hello() {}
+    public static void main(String args[]) {
+        junit.textui.TestRunner.run(suite());
+    }
 }

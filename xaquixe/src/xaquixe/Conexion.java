@@ -8,7 +8,7 @@ import java.sql.SQLException;
  * @author Emanuel lopez
  */
 public class Conexion {
-         private String  host     = "localhost";
+    private String  host        = "localhost";
     private String  usuario     = "postgres";
     private String  clave       = "lopez";
     private int     puerto      = 5434;

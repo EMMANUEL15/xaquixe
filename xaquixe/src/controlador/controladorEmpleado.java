@@ -6,41 +6,41 @@ import java.awt.event.MouseListener;
 /**
  * @author Emanuel Lopez
  */
-public class controladorProveedor implements ActionListener,MouseListener{
-    private vista.panel_proveedor vista;
-    private modelo.ModeloProveedor modelo;
+public class controladorEmpleado implements ActionListener,MouseListener{
+    private vista.panel_empleado vista;
+    private modelo.ModeloEmpleado modelo;
     private  int tuplaSelecionada;
     /**
-     * contructor de controlador de proveedor
-     * @param view- panel que contiene los tabla, campos de texto y botones para los proveedor
-     * @param model- contien metodos para insertar, eliminar, actualizar y buscar proveedor en base de datos 
+     * contructor de controlador de Empleados
+     * @param view- panel que contiene los tabla, campos de texto y botones para los Empleados
+     * @param model- contien metodos para insertar, eliminar, actualizar y buscar Empleados en base de datos 
      */
-    public controladorProveedor(vista.panel_proveedor view ,modelo.ModeloProveedor model){
+    public controladorEmpleado(vista.panel_empleado view ,modelo.ModeloEmpleado model){
         this.vista   = view;
-	this.modelo = model;
-        this.vista.datos(modelo.Proveedores());
+	this.modelo  = model;
+        this.vista.datos(modelo.Empleados());
         this.tuplaSelecionada = -1;
     }
     /**
      * controla lo eventos de la vista hacia el modelo
-     * @param arg0- recive los eventos de los botones del panel proveedores
+     * @param arg0- recive los eventos de los botones del panel Empleados
      */
     public void actionPerformed(ActionEvent arg0) {
         //COMANDO EJECTUADO
         String comando  = arg0.getActionCommand();
-        modelo.Proveedor p = new modelo.Proveedor();
+        modelo.Empleado em = new modelo.Empleado();
         
         switch (comando) {
             case "BUSCAR":
-                    vista.datos(modelo.searchProveedores(this.vista.getBuscar()));
+                    vista.datos(modelo.searchEmpleados(this.vista.getBuscar()));
             break;
             case "INSERTAR":
                 try{
                 if(validar()){
-                p = new modelo.Proveedor(vista.getCampo1(),vista.getCampo2(),vista.getCampo3(),vista.getCampo4(),vista.getCampo5(),vista.getCampo6(),vista.getCampo7(),vista.getCampo8(),vista.getCampo9());
-                String r = modelo.insertProveedor(p);
+                em = new modelo.Empleado(vista.getCampo1(),vista.getCampo2(),vista.getCampo3(),vista.getCampo4(),vista.getCampo5(),vista.getCampo6(),vista.getCampo7(),vista.getCampo8(),vista.getCampo9(),vista.getCampo10());
+                String r = modelo.insertEmpleados(em);
 		if (r.equals("")){
-                    this.vista.datos(modelo.Proveedores());
+                    this.vista.datos(modelo.Empleados());
                     limpiar();
                 }else
                     this.vista.Mensaje(r);
@@ -49,11 +49,11 @@ public class controladorProveedor implements ActionListener,MouseListener{
             break;
  
             case "BORRAR":
-                    if(tuplaSelecionada >= 0 ){
+                    if(tuplaSelecionada >= 0){
                         if(vista.confirmacion(tuplaSelecionada)==true){
-                            String r = modelo.deleteProveedor(this.vista.getCampo1());
+                            String r = modelo.deleteEmpleados(this.vista.getCampo1());
                             if(r.equals("")){
-                                this.vista.datos(modelo.Proveedores());
+                                this.vista.datos(modelo.Empleados());
                                 limpiar();
                                 tuplaSelecionada = -1;
                             }else
@@ -67,10 +67,10 @@ public class controladorProveedor implements ActionListener,MouseListener{
             case "MODIFICAR":
                 try{
                     if(tuplaSelecionada >= 0 && validar()){
-                        p = new modelo.Proveedor(vista.getCampo1(),vista.getCampo2(),vista.getCampo3(),vista.getCampo4(),vista.getCampo5(),vista.getCampo6(),vista.getCampo7(),vista.getCampo8(),vista.getCampo9());
-                        String r = modelo.updateProveedor(p, (String) vista.getTable().getValueAt(tuplaSelecionada,0));
+                        em = new modelo.Empleado(vista.getCampo1(),vista.getCampo2(),vista.getCampo3(),vista.getCampo4(),vista.getCampo5(),vista.getCampo6(),vista.getCampo7(),vista.getCampo8(),vista.getCampo9(),vista.getCampo10());
+                        String r = modelo.updateEmpleados(em, (String) vista.getTable().getValueAt(tuplaSelecionada,0));
                         if(r.equals("")){
-                           this.vista.datos(modelo.Proveedores());
+                           this.vista.datos(modelo.Empleados());
                         }else
                         this.vista.Mensaje(r);
                     }
@@ -84,6 +84,10 @@ public class controladorProveedor implements ActionListener,MouseListener{
             break;
         }
     }
+    /**
+     * Valida que todos los campos no esten vacios y con datos correctos
+     * @return un verdadero si esta correctamente rellenados
+     */
     private boolean validar(){
         boolean band = true;
         if(this.vista.getCampo1().equals("")){
@@ -93,31 +97,34 @@ public class controladorProveedor implements ActionListener,MouseListener{
             vista.Mensaje("NOMBRE esta vacio.");
             band = false;
         }else if(this.vista.getCampo3().equals("")){
-            vista.Mensaje("RAZON SOCIAL esta vacio.");
+            vista.Mensaje("APELLIDO PATERNO esta vacio.");
             band = false;
         }else if(this.vista.getCampo4().equals("")){
-            vista.Mensaje("CALLE esta vacio.");
+            vista.Mensaje("APELLIDO MATERNO esta vacio.");
             band = false;
         }else if(this.vista.getCampo5().equals("")){
-            vista.Mensaje("NUMERO esta vacio.");
+            vista.Mensaje("CALLE esta vacio.");
             band = false;
         }else if(this.vista.getCampo6().equals("")){
-            vista.Mensaje("COLONIA esta vacio.");
+            vista.Mensaje("NUMERO esta vacio.");
             band = false;
         }else if(this.vista.getCampo7().equals("")){
-            vista.Mensaje("MUNICIPIO esta vacio.");
+            vista.Mensaje("COLONIA esta vacio.");
             band = false;
         }else if(this.vista.getCampo8().equals("")){
-            vista.Mensaje("ENTIDAD esta vacio.");
+            vista.Mensaje("MUNICIPIO esta vacio.");
             band = false;
         }else if(this.vista.getCampo9().equals("")){
+            vista.Mensaje("ENTIDAD esta vacio.");
+            band = false;
+        }else if(this.vista.getCampo10().equals("")){
             vista.Mensaje("CODIGO POSTAL esta vacio.");
             band = false;
         }
         return band;
     }
     /**
-     * limpia los campos de texto del panel proveedores
+     * limpia los campos de texto del panel Empleados
      */
     private void limpiar(){
                 this.vista.setCampo1("");
@@ -129,10 +136,11 @@ public class controladorProveedor implements ActionListener,MouseListener{
                 this.vista.setCampo7("");
                 this.vista.setCampo8("");
                 this.vista.setCampo9("");
+                this.vista.setCampo10("");
     }
     /**
      * controla lo eventos del maouse
-     * @param me- recive los eventos del mouse sobre la tabla del panel proveedores
+     * @param me- recive los eventos del mouse sobre la tabla del panel Empleados
      */
     @Override
     public void mouseClicked(MouseEvent me) {
@@ -147,7 +155,7 @@ public class controladorProveedor implements ActionListener,MouseListener{
             this.vista.setCampo7(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,6)));
             this.vista.setCampo8(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,7)));
             this.vista.setCampo9(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,8)));
-            this.vista.setDatosCombo(this.modelo.TelefonoProveedores(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,0))),this.modelo.CorreoProveedores(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,0))));
+            this.vista.setCampo10(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,9)));
         }else
             vista.Mensaje("¡Tupla vacia!");
     }

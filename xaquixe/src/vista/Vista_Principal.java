@@ -35,9 +35,10 @@ public class Vista_Principal extends JFrame{
     private Boton btnmateriales   = new Boton("Materiales  ","image/material.png");
     private Boton btnproductos    = new Boton("Productos   ","image/producto.png");
     private Boton btnproveedores  = new Boton("Proveedores ","image/proveedor.png");
+    private Boton btnclientes     = new Boton("Clientes    ","image/cliente.png");
     private Boton btnempleados    = new Boton("Recursos H. ","image/recursosH.png");
-    private Boton btnventas       = new Boton("Ventas       ","image/venta.png");
-    private Boton btncerrar       = new Boton("Cerrar       ","image/cerrar.png");
+    private Boton btnventas       = new Boton("Ventas        ","image/venta.png");
+    private Boton btncerrar       = new Boton("Cerrar        ","image/cerrar.png");
     /**
     * configuracion de JFrame principal
     */
@@ -53,7 +54,7 @@ public class Vista_Principal extends JFrame{
          Agregarcomponetes();
                  
         setSize(400,300);
-        setUndecorated(true);
+        setDefaultCloseOperation (EXIT_ON_CLOSE );//setUndecorated(true);
         setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo ( null );
         setVisible ( true ); 
@@ -87,6 +88,7 @@ public class Vista_Principal extends JFrame{
         panelbotone.add(btnmateriales);
         panelbotone.add(btnproductos);
         panelbotone.add(btnproveedores);
+        panelbotone.add(btnclientes);
         panelbotone.add(btnempleados);
         panelbotone.add(btnventas);
         panelbotone.add(btncerrar);
@@ -135,6 +137,9 @@ public class Vista_Principal extends JFrame{
  
         btnproveedores.addActionListener(c);
         btnproveedores.setActionCommand("POVEEDORES");
+        
+        btnclientes.addActionListener(c);
+        btnclientes.setActionCommand("CLIENTES");
 		
 	btnempleados.addActionListener(c);
 	btnempleados.setActionCommand("EMPLEADOS");

@@ -6,54 +6,41 @@ import java.awt.event.MouseListener;
 /**
  * @author Emanuel Lopez
  */
-public class controladorMaterial implements ActionListener,MouseListener{
-    private vista.panel_material vista;
-    private modelo.ModeloMaterial modelo;
-    
-    private vista.panel_autorizacion vistAuto;
-    private modelo.ModeloAutorizacion modelAuto;
+public class controladorCliente implements ActionListener,MouseListener{
+    private vista.panel_cliente vista;
+    private modelo.ModeloCliente modelo;
     private  int tuplaSelecionada;
     /**
-     * contructor de controlador de materiales
-     * @param view- panel que contiene los tabla, campos de texto y botones para los materiales
-     * @param model- contien metodos para insertar, eliminar, actualizar y buscar materiales en la base de datos 
+     * contructor de controlador de Client
+     * @param view- panel que contiene los tabla, campos de texto y botones para los Client
+     * @param model- contien metodos para Cinsertar, eliminar, actualizar y buscar Client en base de datos 
      */
-    public controladorMaterial(vista.panel_material view ,modelo.ModeloMaterial model){
+    public controladorCliente(vista.panel_cliente view ,modelo.ModeloCliente model){
         this.vista   = view;
 	this.modelo = model;
-        this.vista.datos(modelo.Materiales());
+        this.vista.datos(modelo.Clientes());
         this.tuplaSelecionada = -1;
     }
     /**
-     * controlador de autorizacion
-     * @param viewA- panel que contiene los tabla de proveedores autorizados
-     * @param modelA- contien metodos para dar autorizacion a proveedores en la base de datos 
-     */
-    public void controladorAutorizacion(vista.panel_autorizacion viewA, modelo.ModeloAutorizacion modelA){
-        this.vistAuto = viewA;
-        this.modelAuto = modelA;
-    }
-    /**
      * controla lo eventos de la vista hacia el modelo
-     * @param arg0- recive los eventos de los botones del panel Materiales
+     * @param arg0- recive los eventos de los botones del panel Clientes
      */
     public void actionPerformed(ActionEvent arg0) {
         //COMANDO EJECTUADO
         String comando  = arg0.getActionCommand();
-        modelo.Material m = new modelo.Material();
+        modelo.Cliente c = new modelo.Cliente();
         
         switch (comando) {
             case "BUSCAR":
-                    vista.datos(modelo.searchMateriales(this.vista.getBuscar()));
+                    vista.datos(modelo.searchClientes(this.vista.getBuscar()));
             break;
             case "INSERTAR":
                 try{
                 if(validar()){
-                int cantidad =Integer.parseInt(vista.getCampo3());
-                m = new modelo.Material(vista.getCampo1(),vista.getCampo2(),cantidad);
-                String r = modelo.insertMaterial(m);
+                c = new modelo.Cliente(vista.getCampo1(),vista.getCampo2(),vista.getCampo3(),vista.getCampo4());
+                String r = modelo.insertCliente(c);
 		if (r.equals("")){
-                    this.vista.datos(modelo.Materiales());
+                    this.vista.datos(modelo.Clientes());
                     limpiar();
                 }else
                     this.vista.Mensaje(r);
@@ -62,11 +49,11 @@ public class controladorMaterial implements ActionListener,MouseListener{
             break;
  
             case "BORRAR":
-                    if(tuplaSelecionada >= 0 ){
+                    if(tuplaSelecionada >= 0){
                         if(vista.confirmacion(tuplaSelecionada)==true){
-                            String r = modelo.deleteMaterial(this.vista.getCampo1());
+                            String r = modelo.deleteCliente(this.vista.getCampo1());
                             if(r.equals("")){
-                                this.vista.datos(modelo.Materiales());
+                                this.vista.datos(modelo.Clientes());
                                 limpiar();
                                 tuplaSelecionada = -1;
                             }else
@@ -80,11 +67,10 @@ public class controladorMaterial implements ActionListener,MouseListener{
             case "MODIFICAR":
                 try{
                     if(tuplaSelecionada >= 0 && validar()){
-                        int cantidad =Integer.parseInt(vista.getCampo3());
-                        m = new modelo.Material(vista.getCampo1(),vista.getCampo2(),cantidad);
-                        String r = modelo.updateMaterial(m, (String) vista.getTable().getValueAt(tuplaSelecionada,0));
+                        c = new modelo.Cliente(vista.getCampo1(),vista.getCampo2(),vista.getCampo3(),vista.getCampo4());
+                        String r = modelo.updateCliente(c, (String) vista.getTable().getValueAt(tuplaSelecionada,0));
                         if(r.equals("")){
-                           this.vista.datos(modelo.Materiales());
+                           this.vista.datos(modelo.Clientes());
                         }else
                         this.vista.Mensaje(r);
                     }
@@ -92,53 +78,45 @@ public class controladorMaterial implements ActionListener,MouseListener{
             break;
             case "NUEVO":
 		limpiar();
-            break;
-            case "UPPROVEDOR":
-                if(tuplaSelecionada >= 0 ){
-                    vistAuto.setId_Material(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,0)));
-                    vistAuto.datosAutorizados(modelAuto.searchAutorizacion((String) vista.getTable().getValueAt(tuplaSelecionada,0)));
-                    vistAuto.setLocationRelativeTo(null);
-                    vistAuto.setVisible(true);
-                }else{this.vista.Mensaje("No ha selecionado ninguna tupla");  }
-            break;
-            case "BUSCAR_PROVEEDOR":
-                    
-            break;
+		break;
             default:
                 
             break;
         }
     }
+    /**
+     * Valida que todos los campos no esten vacios y con datos correctos
+     * @return un verdadero si esta correctamente rellenados
+     */
     private boolean validar(){
         boolean band = true;
         if(this.vista.getCampo1().equals("")){
-            vista.Mensaje("ID_MATERIAL esta vacio.");
+            vista.Mensaje("RFC esta vacio.");
             band = false;
         }else if(this.vista.getCampo2().equals("")){
             vista.Mensaje("NOMBRE esta vacio.");
             band = false;
         }else if(this.vista.getCampo3().equals("")){
-            vista.Mensaje("CANTIDAD esta vacio.");
+            vista.Mensaje("APELLIDO PATERNO esta vacio.");
             band = false;
-        }else{
-            try{Integer.parseInt(this.vista.getCampo3());}catch(Exception e){
-                vista.Mensaje("Digite un numero entero en el campo Cantidad.");
-                band = false;
-            }
+        }else if(this.vista.getCampo4().equals("")){
+            vista.Mensaje("APELLIDO MATERNO esta vacio.");
+            band = false;
         }
         return band;
     }
     /**
-     * limpia los campos de texto del panel materiales
+     * limpia los campos de texto del panel Clientes
      */
     private void limpiar(){
                 this.vista.setCampo1("");
                 this.vista.setCampo2("");
                 this.vista.setCampo3("");
+                this.vista.setCampo4("");
     }
     /**
      * controla lo eventos del maouse
-     * @param me- recive los eventos del mouse sobre la tabla del panel meteriales
+     * @param me- recive los eventos del mouse sobre la tabla del panel Clientes
      */
     @Override
     public void mouseClicked(MouseEvent me) {
@@ -147,7 +125,8 @@ public class controladorMaterial implements ActionListener,MouseListener{
             this.vista.setCampo1(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,0)));
             this.vista.setCampo2(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,1)));
             this.vista.setCampo3(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,2)));
-            this.vista.setDatosCombo(this.modelo.ProveedoresAutorizados(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,0))));
+            this.vista.setCampo4(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,3)));
+            this.vista.setDatosCombo(this.modelo.TelefonoCliente(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,0))),this.modelo.DireccionCliente(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,0))));
         }else
             vista.Mensaje("¡Tupla vacia!");
     }

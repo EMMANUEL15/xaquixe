@@ -1,78 +1,75 @@
 package vista;
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Scanner;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.ImageIcon;
+
 /**
- *
- * @author Emanuel lopez
+ * @author Emanuel Lopez
  */
-public class panel_producto extends JPanel{
- 
-    //DEFINICIÓN DE LOS CUADROS DE TEXTO
+public class panel_empleado extends JPanel{
+    //DEFINICION DE CAMPOS DE TEXTO
     protected JTextField TextBuscar = new JTextField(20);
     protected JTextField campo1 = new JTextField();
     protected JTextField campo2 = new JTextField();
     protected JTextField campo3 = new JTextField();
     protected JTextField campo4 = new JTextField();
     protected JTextField campo5 = new JTextField();
+    protected JTextField campo6 = new JTextField();
+    protected JTextField campo7 = new JTextField();
+    protected JTextField campo8 = new JTextField();
+    protected JTextField campo9 = new JTextField();
+    protected JTextField campo10 = new JTextField();
     
     //DEFINICIÓN DE LOS BOTONES
-    JButton btnBuscar= new JButton("Buscar");
+    protected JButton btnBuscar= new JButton("Buscar");
     protected JButton btnAgregar = new JButton("Añadir");
     protected JButton btnEliminar = new JButton("Elminar");
     protected JButton btnActualizar = new JButton("Actualizar");
     protected JButton btnNuevo = new JButton("Nuevo");
-    protected JButton btnImagen = new JButton("Selecioanr imagen");
-    //DEFINICION DE TABLAS
+    
     private Object [][] registro;
     private String[] columnas;
     private JTable table = new JTable(new DefaultTableModel(registro,columnas));
     private JScrollPane scrollPane = new JScrollPane(table);
     
-    private String label[]={"SKU","ITEM","MEDIDA","CANTIDAD","PRECIO"};
+    private String label[]={"RFC:","NOMBRE:","APELLIDO PATERNO:","APELLIDO MATERNO:","CALLE:","NUMERO:","COLONIA:","MUNICIPIO:","ENTIDAD:","CODIGO POSTAL:"};
     private ArrayList<JTextField> camposTexto= new ArrayList<JTextField>();
     
-    Font fuente  = new Font("Bodoni Bd BT", Font.BOLD, 20);
+    //DEFINICION DE FUENTES
+    /*Font fuente  = new Font("Bodoni Bd BT", Font.BOLD, 20);
     Font fuente2 = new Font("Bodoni", Font.ITALIC, 15);
-    Font fuente3 = new Font("Verdana", Font.BOLD,15);
-    Font fuente4  = new Font("Verdana", Font.BOLD,12);
-     
+    Font fuente3 = new Font("Verdana", Font.BOLD,15);*/
+    
+    //DEFINICION DE PANEL
     private JPanel panelBusqueda = new JPanel();
     private JPanel PanelDatos = new JPanel();
     private JPanel panelCampos = new JPanel();
     private JPanel panelBotones = new JPanel();
-    private JPanel detalles = new JPanel();
+    private JPanel Acciones = new JPanel();
     
-    private JLabel imagen = new JLabel();
     
-    /**
+   /**
     * componete general
     * CONSTRUCTOR
     */
-    public panel_producto(){
+    public panel_empleado(){
         //COMPONENETES DEL PANEL DE BUAQUEDA
-            TextBuscar.setFont(fuente2);
-            JLabel etiqueta = new JLabel("Producto:");
-            etiqueta.setFont(fuente);
+            //TextBuscar.setFont(fuente2);
+            JLabel etiqueta = new JLabel("Empleado:");
+            //etiqueta.setFont(fuente);
             
         //PANEL DE BUSQUEDA
             panelBusqueda.add(etiqueta);
@@ -80,7 +77,7 @@ public class panel_producto extends JPanel{
             panelBusqueda.add(btnBuscar);
                
         //CONFIGURACION DE LA TABLA
-            table.setFont(fuente2);
+            //table.setFont(fuente2);
             table.setDragEnabled(false);
         //CONFIGURACION DEL ENCABEZADO DE LA TABLA
             JTableHeader th; 
@@ -99,53 +96,53 @@ public class panel_producto extends JPanel{
             camposTexto.add(campo3);
             camposTexto.add(campo4);
             camposTexto.add(campo5);
+            camposTexto.add(campo6);
+            camposTexto.add(campo7);
+            camposTexto.add(campo8);
+            camposTexto.add(campo9);
+            camposTexto.add(campo10);
             
-            panelCampos.setLayout(new GridLayout(5,1,10,5));
+            panelCampos.setLayout(new GridLayout(3,3,10,5));
             int i=0;
                 for(JTextField jtx: camposTexto){
                     JPanel Columna1 = new JPanel();
-                    Columna1.setLayout(new GridLayout(1,2,5,5));
+                    Columna1.setLayout(new GridLayout(2,1,5,5));
+                    //Columna1.setLayout(new FlowLayout(FlowLayout.LEFT));
                     JLabel etiq = new JLabel(label[i]);
-                    etiq.setFont(fuente3);
-                    jtx.setFont(fuente3);
-                    Columna1.add(new JLabel());
+                    //etiq.setFont(fuente3);
+                    //jtx.setFont(fuente3);
                     Columna1.add(etiq);
                     Columna1.add(jtx);
                     panelCampos.add(Columna1);
                     i++;
-                }     
-        //PANEL DE IMAGEN
-            JPanel panelImagen = new JPanel();
-            panelImagen.add(imagen);
+                }
+                      
         //PANEL DE BOTONES
-            JPanel aux = new JPanel();
-            aux.add(panelBotones);
+            JPanel auxBotones = new JPanel();
+            auxBotones.add(panelBotones);
             panelBotones.setLayout(new GridLayout(5,1,5,5));
-            panelBotones.add(btnImagen);
             panelBotones.add(btnAgregar);
             panelBotones.add(btnEliminar);
             panelBotones.add(btnActualizar);
             panelBotones.add(btnNuevo);
-        
-            detalles.setLayout(new GridLayout(1,3,5,5));
-            detalles.add(panelImagen); 
-            detalles.add(panelCampos);   
-            detalles.add(aux); 
-        
+            
+            Acciones.setLayout(new GridLayout(1,1,5,5));
+            Acciones.add(panelCampos); 
+            
+            /*labelCorreo.setFont(fuente3);
+            labelTelefono.setFont(fuente3);
+            tele.setFont(fuente3);
+            mail.setFont(fuente3);*/
+            JPanel TextBotone = new JPanel();
+            TextBotone.setLayout(new BorderLayout());
+            TextBotone.add(new JLabel("  "),BorderLayout.WEST);
+            TextBotone.add(Acciones,BorderLayout.CENTER);
+            TextBotone.add(auxBotones,BorderLayout.EAST);
         //PANEL PRINCIPAL
             setLayout(new BorderLayout());
             add(PanelDatos,BorderLayout.CENTER);
-            add(detalles,BorderLayout.SOUTH);
+            add(TextBotone,BorderLayout.SOUTH);
         
-    }
-     /**
-     * Agrega una nueva imagen
-     * @param image- recibe una cadena como nombre de la imagen
-     */
-    public void SetImagen(String image){
-            ImageIcon img = new ImageIcon(image);
-            ImageIcon img2 = new ImageIcon(img.getImage().getScaledInstance(260,150, Image.SCALE_SMOOTH));
-            imagen.setIcon(img2);
     }
      /**
      * genera un mensaje
@@ -154,7 +151,7 @@ public class panel_producto extends JPanel{
     public void Mensaje(String mensaje){
         JOptionPane.showMessageDialog(this, mensaje);
     }
-     /**
+    /**
      * genera un mensaje de confirmacion
      * @param int- recibe un entero
      */
@@ -186,6 +183,11 @@ public class panel_producto extends JPanel{
     public String getCampo3() {return campo3.getText();}
     public String getCampo4() {return campo4.getText();}
     public String getCampo5() {return campo5.getText();}
+    public String getCampo6() {return campo6.getText();}
+    public String getCampo7() {return campo7.getText();}
+    public String getCampo8() {return campo8.getText();}
+    public String getCampo9() {return campo9.getText();}
+    public String getCampo10() {return campo10.getText();}
     public String getBuscar(){return TextBuscar.getText();}
     /**
      * setters de los campos de texto
@@ -196,56 +198,18 @@ public class panel_producto extends JPanel{
     public void setCampo3(String s) {this.campo3.setText(s);}
     public void setCampo4(String s) {this.campo4.setText(s);}
     public void setCampo5(String s) {this.campo5.setText(s);}
+    public void setCampo6(String s) {this.campo6.setText(s);}
+    public void setCampo7(String s) {this.campo7.setText(s);}
+    public void setCampo8(String s) {this.campo8.setText(s);}
+    public void setCampo9(String s) {this.campo9.setText(s);}
+    public void setCampo10(String s){this.campo10.setText(s);}
+    
     /**
-     * copia la imagen
-     * @param ruta- recibe una cadena de la ruta de origen de la imagen
-     */
-    public boolean moverimagen(String ruta){
-        boolean band = true;
-        Scanner entrada = null;
-        JFileChooser fileChooser = new JFileChooser();
-        int valor = fileChooser.showOpenDialog(fileChooser);
-        if (valor == JFileChooser.APPROVE_OPTION) {
-            try {
-                File origen = new File(fileChooser.getSelectedFile().getAbsolutePath());
-                File destino = new File(ruta);
-                    InputStream in = new FileInputStream(origen);
-                    OutputStream out = new FileOutputStream(destino);
-                    
-                    byte[] buf = new byte[1024];
-                    int len;
-
-                    while ((len = in.read(buf)) > 0) {
-                        out.write(buf, 0, len);
-                    }
-
-                    in.close();
-                    out.close();
-            }catch (Exception e) {
-                band =false;
-            }finally {
-                if (entrada != null) {
-                    entrada.close();
-                }
-            }
-        } else { Mensaje("No se ha seleccionado ningún fichero"); }
-        return band;
-    }
-    /**
-     * elimina la imagen
-     * @param archivo- nombre de la imagen
-     */
-    public void emiminar(String archivo){
-        File fichero = new File(archivo);
-        if(fichero.exists()) {
-            fichero.delete();
-        }
-    }
-     /**
      * controlador
      * @param c- recibe un controlador para los eventos
      */
-    public void conectaControlador(controlador.ControladorProducto c  ){
+    public void conectaControlador(controlador.controladorEmpleado c  ){
+        //botones
         btnBuscar.addActionListener(c);
         btnBuscar.setActionCommand("BUSCAR");
         
@@ -261,9 +225,7 @@ public class panel_producto extends JPanel{
 	btnNuevo.addActionListener(c);
 	btnNuevo.setActionCommand("NUEVO");
         
-        btnImagen.addActionListener(c);
-	btnImagen.setActionCommand("CAMBIAR");
-        
+        // tabla
         table.addMouseListener(c);
     }
 }

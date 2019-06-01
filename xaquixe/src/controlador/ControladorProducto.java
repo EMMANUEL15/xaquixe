@@ -36,9 +36,11 @@ public class ControladorProducto implements ActionListener,MouseListener{
                     vista.datos(modelo.searchProduct(this.vista.getBuscar()));
             break;
             case "INSERTAR":
+                if(validar()){
                 try{
                 double precio =Double.parseDouble(vista.getCampo5());
-                p = new modelo.Producto(vista.getCampo1(),vista.getCampo2(),vista.getCampo3(),vista.getCampo4(),precio);
+                int cantidad = Integer.parseInt(vista.getCampo4());
+                p = new modelo.Producto(vista.getCampo1(),vista.getCampo2(),vista.getCampo3(),cantidad,precio);
                 String r = modelo.insertProducto(p);
 		if (r.equals("")){
                     this.vista.datos(modelo.Products());
@@ -46,8 +48,9 @@ public class ControladorProducto implements ActionListener,MouseListener{
                 }else
                     this.vista.Mensaje(r);
                 }catch(Exception e){vista.Mensaje(String.valueOf(e.getMessage()));}
+        }
             break;
- 
+            
             case "BORRAR":
                     if(tuplaSelecionada >= 0 ){
                         if(vista.confirmacion(tuplaSelecionada)==true){
@@ -68,20 +71,21 @@ public class ControladorProducto implements ActionListener,MouseListener{
  
             case "MODIFICAR":
                 try{
-                    if(tuplaSelecionada >= 0 ){
+                    if(tuplaSelecionada >= 0 && validar() ){
                         double precio2 =Double.parseDouble(vista.getCampo5());
-                        p = new modelo.Producto(vista.getCampo1(),vista.getCampo2(),vista.getCampo3(),vista.getCampo4(),precio2);
+                        int cantidad = Integer.parseInt(vista.getCampo4());
+                        p = new modelo.Producto(vista.getCampo1(),vista.getCampo2(),vista.getCampo3(),cantidad,precio2);
                         String r = modelo.updateProducto(p,String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,0)));
                         if(r.equals("")){
                            this.vista.datos(modelo.Products());
                         }else
                         this.vista.Mensaje(r);
-                    }else{this.vista.Mensaje("No ha selecionado ninguna tupla");  }
+                    }
                 }catch(Exception e){vista.Mensaje(String.valueOf(e.getMessage()));}
             break;
             case "CAMBIAR":
                 try{
-                    if(tuplaSelecionada >= 0 ){
+                    if(tuplaSelecionada >= 0){
                         String i = this.modelo.searchImage(String.valueOf(vista.getTable().getValueAt(tuplaSelecionada,0)));
                         String destino = "imagenes\\"+this.vista.getCampo1()+this.vista.getCampo2()+".JPG";
                         if(vista.moverimagen(destino)){
@@ -101,7 +105,40 @@ public class ControladorProducto implements ActionListener,MouseListener{
                 
             break;
         }
-    } 
+    }
+    /**
+     * Valida que todos los campos no esten vacios y con datos correctos
+     * @return un verdadero si esta correctamente rellenados
+     */
+    private boolean validar(){
+        boolean band = true;
+        if(this.vista.getCampo1().equals("")){
+            vista.Mensaje("SKU esta vacio.");
+            band = false;
+        }else if(this.vista.getCampo2().equals("")){
+            vista.Mensaje("ITEM esta vacio.");
+            band = false;
+        }else if(this.vista.getCampo3().equals("")){
+            vista.Mensaje("MEDIDAD esta vacio.");
+            band = false;
+        }else if(this.vista.getCampo4().equals("")){
+            vista.Mensaje("CANTIAD esta vacio.");
+            band = false;
+        }else if(this.vista.getCampo5().equals("")){
+            vista.Mensaje("PRECIO esta vacio.");
+            band = false;
+        }else{
+            try{Integer.parseInt(this.vista.getCampo4());}catch(Exception e){
+                vista.Mensaje("Digite un numero entero en el campo Cantidad.");
+                band = false;
+            }
+            try{Double.parseDouble(vista.getCampo5());}catch(Exception e){
+                vista.Mensaje("Digite un numero en el campo precio.");
+                band = false;
+            }
+        }
+        return band;
+    }
     /**
      * limpia los campos de texto del panel productos
      */
