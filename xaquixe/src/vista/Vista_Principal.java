@@ -32,14 +32,14 @@ public class Vista_Principal extends JFrame{
     private miJPanel panelbotone= new miJPanel();
     private JPanel panelComponetes= new JPanel();
     
-    private Boton btncotizaciones = new Boton("Cotizaciones","image/cotizacion.png");
-    private Boton btnmateriales   = new Boton("Materiales  ","image/material.png");
-    private Boton btnproductos    = new Boton("Productos   ","image/producto.png");
-    private Boton btnproveedores  = new Boton("Proveedores ","image/proveedor.png");
-    private Boton btnclientes     = new Boton("Clientes    ","image/cliente.png");
-    private Boton btnempleados    = new Boton("Recursos H. ","image/recursosH.png");
-    private Boton btnventas       = new Boton("Ventas        ","image/venta.png");
-    private Boton btncerrar       = new Boton("Cerrar        ","image/cerrar.png");
+    private Boton btncotizaciones = new Boton("Cotizaciones","image/cotizacion1.png");
+    private Boton btnmateriales   = new Boton("Materiales  ","image/material1.png");
+    private Boton btnproductos    = new Boton("Productos   ","image/producto1.png");
+    private Boton btnproveedores  = new Boton("Proveedores ","image/proveedor1.png");
+    private Boton btnclientes     = new Boton("Clientes    ","image/cliente1.png");
+    private Boton btnempleados    = new Boton("Recursos H. ","image/recursosH1.png");
+    private Boton btnventas       = new Boton("Ventas        ","image/venta1.png");
+    private Boton btncerrar       = new Boton("Cerrar        ","image/cerrar1.png");
     /**
     * configuracion de JFrame principal
     */
