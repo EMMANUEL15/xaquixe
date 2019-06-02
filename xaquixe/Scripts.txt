@@ -34,9 +34,9 @@ nombre varchar(15) not null,
 cantidad int  not null);
 
 create table producto(
-sku varchar(20) primary key,
-item varchar(30) not null,
-medida varchar(15) not null,
+sku varchar(25) primary key,
+item varchar(40) not null,
+medida varchar(20) not null,
 cantidad int  not null,
 precio decimal(6,2) not null);
 
@@ -77,8 +77,19 @@ rfc_p char references proveedor(rfc_p) not null,
 rfc_e char references empleado(rfc_e) not null,
 fecha date not null);
 
+create table Pedido(
+folio_p char(6) primary key,
+rfc_p char references proveedor(rfc_p) not null,
+rfc_e char references empleado(rfc_e) not null,
+fecha date not null);
+
+create table detallePedido(
+folio_p char(6) references Pedido(folio_p) not null,
+id_material char references material(id_material) not null,
+cantidad int  not null);
+
 create table suministro(
-folio_c char(6) references compra(folio_c) not null,
+folio_c char(6) references compra(folio_p) not null,
 id_material char references material(id_material) not null,
 cantidad int  not null,
 precio_c decimal(6,2) not null);
@@ -113,10 +124,6 @@ create table Imagen_producto(
 sku varchar references producto(sku) not null,
 imagen varchar(30) not null);
 
-CREATE VIEW proveedor_autorizado AS (
-select p.nombre, a.id_material from  Autorizacion as a inner join proveedor as p
-ON a.rfc_p = p.rfc_p
-);
 
 CREATE VIEW proveedor_autorizado AS(
 select m.id_material, p.rfc_p, p.nombre,p.razon_social,concat(p.calle,' ',p.numero,' ',p.colonia,' ',p.municipio,' ',p.estado) direccion

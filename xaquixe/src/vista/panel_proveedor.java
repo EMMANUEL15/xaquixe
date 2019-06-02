@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.BorderLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -14,11 +13,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-<<<<<<< Updated upstream
-=======
-//import Componente.MyButton;
->>>>>>> Stashed changes
-import javax.swing.ImageIcon;
 
 /**
  * @author Emanuel Lopez
@@ -71,17 +65,7 @@ public class panel_proveedor extends JPanel{
     //DEFINICION DE COMBOX
     private JComboBox tele = new JComboBox();
     private JComboBox mail = new JComboBox();
-    
-<<<<<<< Updated upstream
-   /**
-=======
-    ImageIcon icono = new ImageIcon("imagenes/NoFound.png");
-  //  MyButton mi = new MyButton("XAQUIXE",icono,50,50);// NUEVO BOTON TIPO COMPONENTE **************************************
-    /**
->>>>>>> Stashed changes
-    * componete general
-    * CONSTRUCTOR
-    */
+
     public panel_proveedor(){
         //COMPONENETES DEL PANEL DE BUAQUEDA
             //TextBuscar.setFont(fuente2);
@@ -141,11 +125,6 @@ public class panel_proveedor extends JPanel{
             panelBotones.add(btnEliminar);
             panelBotones.add(btnActualizar);
             panelBotones.add(btnNuevo);
-<<<<<<< Updated upstream
-=======
-           // panelBotones.add(mi);   //BOTON COMPONONETE *****************************************************************
->>>>>>> Stashed changes
-            
             Acciones.setLayout(new GridLayout(1,1,5,5));
             Acciones.add(panelCampos); 
             
@@ -280,12 +259,6 @@ public class panel_proveedor extends JPanel{
         
         mail.addActionListener(c);
 	mail.setActionCommand("CORREO");
-<<<<<<< Updated upstream
-=======
-        // BOTON DE MANIC*************************************************************************************************
-    //    mi.addActionListener(c);
-    //    mi.setActionCommand("COMPONETE");
->>>>>>> Stashed changes
         // tabla
         table.addMouseListener(c);
     }

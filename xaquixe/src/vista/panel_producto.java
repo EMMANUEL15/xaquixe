@@ -21,6 +21,8 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import javax.swing.table.JTableHeader;
+import java.awt.Color;
+import Componente.tabla;
 /**
  *
  * @author Emanuel lopez
@@ -45,7 +47,7 @@ public class panel_producto extends JPanel{
     //DEFINICION DE TABLAS
     private Object [][] registro;
     private String[] columnas;
-    private JTable table = new JTable(new DefaultTableModel(registro,columnas));
+    private tabla table = new tabla(new DefaultTableModel(registro,columnas));
     private JScrollPane scrollPane = new JScrollPane(table);
     
     private String label[]={"SKU","ITEM","MEDIDA","CANTIDAD","PRECIO"};
@@ -78,13 +80,6 @@ public class panel_producto extends JPanel{
             panelBusqueda.add(etiqueta);
             panelBusqueda.add(TextBuscar);
             panelBusqueda.add(btnBuscar);
-               
-        //CONFIGURACION DE LA TABLA
-            table.setFont(fuente2);
-            table.setDragEnabled(false);
-        //CONFIGURACION DEL ENCABEZADO DE LA TABLA
-            JTableHeader th; 
-            th = table.getTableHeader(); 
         
         //PANEL PARA LA TABLA 
             PanelDatos.setLayout(new BorderLayout());
@@ -136,7 +131,7 @@ public class panel_producto extends JPanel{
             setLayout(new BorderLayout());
             add(PanelDatos,BorderLayout.CENTER);
             add(detalles,BorderLayout.SOUTH);
-        
+            setBackground(new Color(118,118,118,150));
     }
      /**
      * Agrega una nueva imagen

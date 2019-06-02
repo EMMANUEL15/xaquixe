@@ -15,20 +15,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import Componente.miJPanel;
 /**
  * @author Emanuel Lopez
  */
 public class Vista_Principal extends JFrame{
     private Container contenedor = getContentPane();
     
-    private JPanel panel1= new JPanel();
-    private JPanel panel2= new JPanel();
-    private JPanel panel3= new JPanel();
+    private miJPanel panel1= new miJPanel("border");
+    private miJPanel panel2= new miJPanel("border");
+    private miJPanel panel3= new miJPanel("border");
     
     private JPanel paneltitulo= new JPanel();
     private JPanel panelMenu= new JPanel();
     private JPanel panelventanas= new JPanel();
-    private JPanel panelbotone= new JPanel();
+    private miJPanel panelbotone= new miJPanel();
     private JPanel panelComponetes= new JPanel();
     
     private Boton btncotizaciones = new Boton("Cotizaciones","image/cotizacion.png");
@@ -64,10 +65,11 @@ public class Vista_Principal extends JFrame{
      */
     private void Agregarcomponetes(){
         Color gris =new Color(235, 235, 224);
-        paneltitulo.setBackground(Color.LIGHT_GRAY);
-        panelMenu.setBackground(Color.LIGHT_GRAY);
-        panelComponetes.setBackground(Color.LIGHT_GRAY);
-        panelbotone.setBackground(Color.LIGHT_GRAY);
+        
+        paneltitulo.setBackground(new Color(118,118,118,150));
+        panelMenu.setBackground(new Color(118,118,118,150));
+        panelComponetes.setBackground(new Color(118,118,118,150));
+        //panelbotone.setBackground(new Color(118,118,118,150));
         
         JLabel logo = new JLabel();
         ImageIcon img = new ImageIcon("image/logo.png");
@@ -96,18 +98,12 @@ public class Vista_Principal extends JFrame{
         panelventanas.setLayout(new BorderLayout());
         panelventanas.add(panelComponetes,BorderLayout.CENTER);
         
-        panel3.setOpaque(false);
-        panel3.setLayout(new BorderLayout());
         panel3.add(panelMenu,BorderLayout.WEST);
         panel3.add(new JLabel("     "),BorderLayout.EAST);
         
-        panel2.setOpaque(false);
-        panel2.setLayout(new BorderLayout());
         panel2.add(paneltitulo,BorderLayout.NORTH);
         panel2.add(new JLabel("  "),BorderLayout.SOUTH);
         
-        panel1.setOpaque(false);
-        panel1.setLayout(new BorderLayout());
         panel1.add(panel2,BorderLayout.NORTH);
         panel1.add(panel3,BorderLayout.WEST);
         panel1.add(panelventanas,BorderLayout.CENTER);
