@@ -12,6 +12,8 @@ import java.util.Date;
 public class controladorPedido implements ActionListener,MouseListener{
     private vista.panel_pedido vista;
     private modelo.ModeloPedido modelo;
+    private vista.Ventana_Proveedor vistaProveedor;
+    
     private  int tuplaSelecionada;
     private  int tuplaSelecionada2;
     /**
@@ -19,9 +21,10 @@ public class controladorPedido implements ActionListener,MouseListener{
      * @param view- panel que contiene los tabla, campos de texto y botones para los Compra
      * @param model- contien metodos para insertar, eliminar, actualizar y buscar Compra en base de datos 
      */
-    public controladorPedido(vista.panel_pedido view ,modelo.ModeloPedido model,String p){
+    public controladorPedido(vista.panel_pedido view,vista.Ventana_Proveedor view2,modelo.ModeloPedido model,String p){
         this.vista   = view;    
 	this.modelo = model;
+        this.vistaProveedor = view2;
         this.vista.setTextPersonal(p);
         this.tuplaSelecionada  = -1;
         this.tuplaSelecionada2 = -1;
@@ -31,14 +34,14 @@ public class controladorPedido implements ActionListener,MouseListener{
      * @param view- panel que contiene los tabla, campos de texto y botones para los Compra
      * @param model- contien metodos para insertar, eliminar, actualizar y buscar Compra en base de datos 
      */
-    private void proveedor(String rfc_e){
-        this.vista.setTextProveedor("22");
-    }
+   
     private void Datos(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat dateFolio = new SimpleDateFormat("yyMMddHHmmss");
+        
 	Date date = new Date();
         this.vista.setTextFecha(dateFormat.format(date));
-        this.vista.setTextFolio("2654");
+        this.vista.setTextFolio(dateFolio.format(date));
     }
     /**
      * controla lo eventos de la vista hacia el modelo
@@ -56,30 +59,58 @@ public class controladorPedido implements ActionListener,MouseListener{
                     String id     =String.valueOf(vista.getTableMaterial().getValueAt(tuplaSelecionada2,0));
                     String nombre =String.valueOf(vista.getTableMaterial().getValueAt(tuplaSelecionada2,1));
                     int cantidad  = 1;
-                    vista.getModelo().addRow(new Object[]{id,nombre,cantidad});
-                    limpiar();
+                    boolean band = false;
+                    for(int i = 0;i<vista.getTablePedido().getRowCount();i++){
+                        if(id.equals(String.valueOf(vista.getTablePedido().getValueAt(i,0)))){
+                            band = true;
+                            cantidad = Integer.parseInt(String.valueOf(vista.getTablePedido().getValueAt(i,2)));
+                            vista.getTablePedido().setValueAt(cantidad+1, i, 2);
+                        }
+                    }
+                    if(!band){
+                        vista.getModelo().addRow(new Object[]{id,nombre,cantidad});
+                    }
+                        limpiar();
                 }else{
                     this.vista.Mensaje("No ha selecionado ninguna tupla");
                 }
             break;
             case "ELIMINAR":
+                try{
                 vista.getModelo().removeRow(tuplaSelecionada);
                 limpiar();
+                }catch(Exception s){}
             break;
             case "PEDIDO":
                 try{
-                for (int i = 0; i < vista.getTablePedido().getRowCount(); i++) {
+                    String c = modelo.AgregarPedido(vista.getTextFolio(),vistaProveedor.getRfc(),vista.getTextPersonal(),vista.getTextFecha());
+                if(c.equals("")){
+                    for (int i = 0; i < vista.getTablePedido().getRowCount(); i++) {
                     String folio =String.valueOf(vista.getTablePedido().getValueAt(i, 0));
                     String id    = String.valueOf(vista.getTablePedido().getValueAt(i, 1));
-                    int cantidad    = Integer.parseInt((String) vista.getTablePedido().getValueAt(i, 2));
+                    int cantidad = (int) vista.getTablePedido().getValueAt(i, 2);
                     
                     String r = modelo.AgregarMaterial(folio, id, i);
                     
                     if (r.equals("")){
                        vista.getModelo().removeRow(i);
-                    }
+                    }else{System.out.println(""+r);}
                 }
-                }catch(Exception e){}
+                }else
+                        System.out.println(""+c);
+                }catch(Exception e){System.out.println("*-*-"+e);}
+            break;
+            case "PROVEEDOR":
+                    vistaProveedor.setLocationRelativeTo(null);
+                    vistaProveedor.setVisible(true);
+            break;
+            case "BUSCAR_PROVEEDOR":
+                    vistaProveedor.datosProveedor(modelo.searchProveedor(this.vista.getBuscar()));
+            break;
+            case "SELECCIONADO":
+                 this.vista.setTextProveedor(vistaProveedor.getNombre());
+                 Datos();
+                 this.vistaProveedor.dispose();
             break;
             default:                
             break;
