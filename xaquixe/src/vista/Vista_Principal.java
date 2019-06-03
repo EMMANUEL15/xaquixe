@@ -9,13 +9,13 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import Componente.miJPanel;
+import java.awt.Font;
 /**
  * @author Emanuel Lopez
  */
@@ -64,24 +64,42 @@ public class Vista_Principal extends JFrame{
      * se agrega componente a la ventana principal
      */
     private void Agregarcomponetes(){
-        Color gris =new Color(235, 235, 224);
         
         paneltitulo.setBackground(new Color(118,118,118,150));
         panelMenu.setBackground(new Color(118,118,118,150));
-        panelComponetes.setBackground(new Color(118,118,118,150));
-        //panelbotone.setBackground(new Color(118,118,118,150));
+        panelComponetes.setOpaque(false);
         
-        JLabel logo = new JLabel();
-        ImageIcon img = new ImageIcon("image/logo.png");
-        ImageIcon img2 = new ImageIcon(img.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
-        logo.setIcon(img2);
-        paneltitulo.add(logo);
-        paneltitulo.add(new JLabel("Vidrio Artesanal XA QUIXE S. De R.L Mi. Art."));
+        //JLabel logo = new JLabel();
+        //ImageIcon img = new ImageIcon("image/logo.png");
+        //ImageIcon img2 = new ImageIcon(img.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
+        //logo.setIcon(img2);
+        //paneltitulo.add(logo);
+        //paneltitulo.add(new JLabel("Vidrio Artesanal XA QUIXE S. De R.L Mi. Art."));
+        
+        ////////////////////////////////////////////////
+        JPanel letrero = new JPanel();
+        paneltitulo.add(letrero, BorderLayout.WEST);
+        letrero.setBackground(new Color(255,255,255));
+        letrero.setLayout (new BorderLayout());  
+            // Etiquetas
+        JLabel lema = new JLabel("               EST. 2002");
+        lema.setBackground(Color.BLACK);lema.setForeground(Color.RED);lema.setFont(new Font("Microsoft Yi Baiti",Font.BOLD,12));
+        JLabel titulo   = new JLabel("XAQUIXE");
+        titulo.setBackground(Color.BLACK);titulo.setForeground(Color.BLACK);titulo.setFont(new Font("Microsoft Yi Baiti",Font.BOLD,48));
+        JLabel lema1  = new JLabel("         GLASS_INNOVATION_STUDIO ");
+        lema1.setBackground(Color.BLACK);lema1.setForeground(Color.BLACK);lema1.setFont(new Font("Microsoft Yi Baiti",Font.BOLD,12));
+        letrero.add(lema, BorderLayout.NORTH);
+        letrero.add(titulo, BorderLayout.CENTER);
+        letrero.add(lema1, BorderLayout.SOUTH);
+        letrero.add(new JLabel("       ddddddddddddddd                "), BorderLayout.EAST);
+        letrero.add(new JLabel("    dddddddddddd    "), BorderLayout.WEST);  
+        ////////////////////////////////////////////////
+        
         
         
         panelMenu.setLayout(new BorderLayout());
-        panelMenu.add(new JLabel("  "),BorderLayout.EAST);
-        panelMenu.add(new JLabel("  "),BorderLayout.WEST);
+        panelMenu.add(new JLabel("          "),BorderLayout.EAST);
+        panelMenu.add(new JLabel("          "),BorderLayout.WEST);
         panelMenu.add(panelbotone,BorderLayout.CENTER);
         
         panelbotone.setLayout(new GridLayout(15,1,8,8));
@@ -97,9 +115,10 @@ public class Vista_Principal extends JFrame{
         
         panelventanas.setLayout(new BorderLayout());
         panelventanas.add(panelComponetes,BorderLayout.CENTER);
+        panelventanas.setOpaque(false);
         
         panel3.add(panelMenu,BorderLayout.WEST);
-        panel3.add(new JLabel("     "),BorderLayout.EAST);
+        panel3.add(new JLabel("               "),BorderLayout.EAST);
         
         panel2.add(paneltitulo,BorderLayout.NORTH);
         panel2.add(new JLabel("  "),BorderLayout.SOUTH);
@@ -111,8 +130,8 @@ public class Vista_Principal extends JFrame{
         
         contenedor.setLayout(new BorderLayout());
         contenedor.add(new JLabel("   "),BorderLayout.NORTH);
-        contenedor.add(new JLabel("      "),BorderLayout.EAST);
-        contenedor.add(new JLabel("      "),BorderLayout.WEST);
+        contenedor.add(new JLabel("                        "),BorderLayout.EAST);
+        contenedor.add(new JLabel("                        "),BorderLayout.WEST);
         contenedor.add(panel1,BorderLayout.CENTER);
         contenedor.add(new JLabel("   "),BorderLayout.SOUTH);
         

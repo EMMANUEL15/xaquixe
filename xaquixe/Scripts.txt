@@ -1,0 +1,135 @@
+CREATE DATABASE xaquixe
+  WITH OWNER = postgres
+       ENCODING = 'UTF8'
+       TABLESPACE = pg_default
+       LC_COLLATE = 'Spanish_Mexico.1252'
+       LC_CTYPE = 'Spanish_Mexico.1252'
+       CONNECTION LIMIT = -1;
+
+create schema xaquixe
+set search_path to xaquixe
+
+create table proveedor(
+rfc_p char(15) primary key,
+nombre varchar(60) not null,
+razon_social varchar (40) not null,
+calle varchar(40) not null,
+numero varchar(10) not null,
+colonia varchar(40) not null,
+municipio varchar(40) not null,
+estado varchar(20) not null,
+codigo_p varchar(6) not null);
+
+create table tel_proveedor(
+rfc_p char(15) references proveedor(rfc_p) not null,
+numero varchar(10) not null);
+
+create table mail_proveedor(
+rfc_p char(15) references proveedor(rfc_p) not null,
+email varchar(40) not null);
+
+create table material(
+id_material char(5) primary key,
+nombre varchar(15) not null,
+cantidad int  not null);
+
+create table producto(
+sku varchar(25) primary key,
+item varchar(40) not null,
+medida varchar(20) not null,
+cantidad int  not null,
+precio decimal(6,2) not null);
+
+create table empleado(
+rfc_e char(15) primary key,
+nombre varchar(30) not null,
+apellido1 varchar(15) not null,
+apellido2 varchar(15) not null,
+calle varchar(40) not null,
+numero varchar(10) not null,
+colonia varchar(40) not null,
+municipio varchar(40) not null,
+estado varchar(20) not null,
+codigo_p varchar(6) not null);
+
+create table cliente(
+rfc_c char(15) primary key,
+nombre varchar(30) not null,
+apellido1 varchar(15) not null,
+apellido2 varchar(15) not null);
+
+create table tel_cliente(
+rfc_c char(15) references cliente(rfc_c) not null,
+numero varchar(10) not null);
+
+create table dir_cliente(
+rfc_c char(15) references cliente(rfc_c) not null,
+calle varchar(40) not null,
+numero varchar(10) not null,
+colonia varchar(40) not null,
+municipio varchar(40) not null,
+estado varchar(20) not null,
+codigo_p varchar(6) not null);
+
+create table compra(
+folio_c char(6) primary key,
+rfc_p char references proveedor(rfc_p) not null,
+rfc_e char references empleado(rfc_e) not null,
+fecha date not null);
+
+create table Pedido(
+folio_p char(6) primary key,
+rfc_p char references proveedor(rfc_p) not null,
+rfc_e char references empleado(rfc_e) not null,
+fecha date not null);
+
+create table detallePedido(
+folio_p char(6) references Pedido(folio_p) not null,
+id_material char references material(id_material) not null,
+cantidad int  not null);
+
+create table suministro(
+folio_c char(6) references compra(folio_p) not null,
+id_material char references material(id_material) not null,
+cantidad int  not null,
+precio_c decimal(6,2) not null);
+
+create table salida_material(
+folio_s char(6) primary key,
+rfc_e char(15) references empleado(rfc_e) not null,
+fecha date not null);
+
+create table detalle_salida(
+folio_s char(6) references salida_material(folio_s) not null,
+id_material char references material(id_material) not null,
+cantidad int not null);
+
+create table venta(
+folio_v char(6) primary key,
+rfc_c char references cliente(rfc_c) not null,
+rfc_e char references empleado(rfc_e) not null,
+fecha date not null);
+
+create table detalle_venta(
+folio_v char(6) references venta(folio_v) not null,
+sku varchar references producto(sku) not null,
+cantidad int not null,
+precio_v decimal(6,2) not null);
+
+create table Autorizacion(
+id_material char(5) references material(id_material ) not null,
+rfc_p char(15) references proveedor(rfc_p ) not null);
+
+create table Imagen_producto(
+sku varchar references producto(sku) not null,
+imagen varchar(30) not null);
+
+
+CREATE VIEW proveedor_autorizado AS(
+select m.id_material, p.rfc_p, p.nombre,p.razon_social,concat(p.calle,' ',p.numero,' ',p.colonia,' ',p.municipio,' ',p.estado) direccion
+ from proveedor p, material m, autorizacion a where p.rfc_p = a.rfc_p AND a.id_material = m.id_material
+);
+
+
+
+\d
