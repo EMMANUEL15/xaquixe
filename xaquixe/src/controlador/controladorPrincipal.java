@@ -11,16 +11,20 @@ public class controladorPrincipal implements ActionListener{
     private vista.panel_material vista_material;
     private vista.panel_cliente vista_cliente;
     private vista.panel_empleado vista_empleado;
+    private vista.Venta vista_venta;
+    private vista.Cotizacion vista_cotizacion;
     
     public controladorPrincipal(vista.Vista_Principal view){
         this.vista   = view;
     }
-    public void cargarPaneles(vista.panel_producto producto, vista.panel_proveedor proveedor,vista.panel_material material,vista.panel_cliente cliente,vista.panel_empleado empleado){
+    public void cargarPaneles(vista.panel_producto producto, vista.panel_proveedor proveedor,vista.panel_material material,vista.panel_cliente cliente,vista.panel_empleado empleado,vista.Venta venta,vista.Cotizacion cotizacion){
         this.vista_producto = producto;
         this.vista_proveedor = proveedor;
         this.vista_material = material;
         this.vista_cliente = cliente;
         this.vista_empleado = empleado;
+        this.vista_venta=venta;
+        this.vista_cotizacion=cotizacion;
     }
     
     public void actionPerformed(ActionEvent arg0) {
@@ -29,7 +33,7 @@ public class controladorPrincipal implements ActionListener{
         
         switch (comando) {
             case "COTIZACION":
-                System.out.println("contizacion");
+                this.vista.alternarPanel(vista_cotizacion);
             break;
             case "MATERIALES":
                 this.vista.alternarPanel(vista_material);
@@ -47,7 +51,7 @@ public class controladorPrincipal implements ActionListener{
                 this.vista.alternarPanel(vista_proveedor);
             break;
             case "VENTAS":
-                System.out.println("ventas");
+                this.vista.alternarPanel(vista_venta);
             break;
             case "CERRAR":
                 if(vista.confirmacion()){

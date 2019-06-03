@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.border.Border;
 /**
  *
- * @author akuer and Morache
+ * @author akuer and Morachel
  */
 public class Boton extends JButton {
     

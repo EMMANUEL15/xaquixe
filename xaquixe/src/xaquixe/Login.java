@@ -126,6 +126,10 @@ public class Login extends JFrame{
         
         vista.panel_autorizacion vista_autorizacion = new vista.panel_autorizacion();
         
+        //manic
+        vista.Venta vistasVenta = new vista.Venta();
+        vista.Cotizacion vistaCotizacion = new vista.Cotizacion();
+        
             //MODELO
         modelo.ModeloProducto modelo_producto = new modelo.ModeloProducto();
         modelo.ModeloProveedor modelo_proveedor = new modelo.ModeloProveedor();
@@ -133,6 +137,11 @@ public class Login extends JFrame{
         modelo.ModeloCliente modelo_cliente = new modelo.ModeloCliente();
         modelo.ModeloEmpleado modelo_empleado = new modelo.ModeloEmpleado();
         modelo.ModeloAutorizacion modelo_Autorizacion = new modelo.ModeloAutorizacion();
+        
+        //manic
+        modelo.ModeloVenta modeloVenta= new modelo.ModeloVenta();
+        modelo.ModeloCotizacion modeloCotizacion = new modelo.ModeloCotizacion();
+        
         
             //CONEXION A BASE DE DATOS
         Conexion c= new Conexion("xaquixe");
@@ -143,6 +152,10 @@ public class Login extends JFrame{
         modelo_empleado.conectar(c.getConexion());
         modelo_Autorizacion.conectar(c.getConexion());
         
+        //manic
+        modeloVenta.conectar(c.getConexion());
+        modeloCotizacion.conectar(c.getConexion());
+        
             //CONEXION DE VISTA MODELO CONTROLADOR
         controlador.controladorCliente controlador_cliente  = new controlador.controladorCliente(vista_cliente, modelo_cliente);
         controlador.controladorEmpleado controlador_empleado  = new controlador.controladorEmpleado(vista_empleado, modelo_empleado);
@@ -152,6 +165,11 @@ public class Login extends JFrame{
                                                                     controlador_material.controladorAutorizacion(vista_autorizacion, modelo_Autorizacion);
         controlador.controladorAutorizacion controlador_autorizacion = new controlador.controladorAutorizacion(vista_autorizacion,modelo_Autorizacion);
         
+        //manic
+        controlador.ControladorVenta controladorVenta= new controlador.ControladorVenta(vistasVenta, modeloVenta);
+        controlador.ControlCotizacion controladorCotizacion = new controlador.ControlCotizacion(vistaCotizacion, modeloCotizacion);
+        
+        
             //VINCULAR VISTA Y CONTROLAR
         vista_cliente.conectaControlador(controlador_cliente);
         vista_empleado.conectaControlador(controlador_empleado);
@@ -160,10 +178,16 @@ public class Login extends JFrame{
         vista_material.conectaControlador(controlador_material);
         vista_autorizacion.conectaControlador(controlador_autorizacion);
         
+        //manic
+        vistasVenta.conectar(controladorVenta);
+        vistaCotizacion.conectar(controladorCotizacion);
+        vistasVenta.setRfc_empleado("BEGM960510UN2");
+        vistaCotizacion.setRfc_empleado("BEGM960510UN2");
+        
     vista.Vista_Principal V = new vista.Vista_Principal();
     controlador.controladorPrincipal CP = new controlador.controladorPrincipal(V);
     V.conectaControlador(CP);
-    CP.cargarPaneles(vista_producto, vista_proveedor, vista_material,vista_cliente,vista_empleado);
+    CP.cargarPaneles(vista_producto, vista_proveedor, vista_material,vista_cliente,vista_empleado,vistasVenta,vistaCotizacion);
     V.setVisible(true);
         this.dispose();
         }else if(dusuario.getText().equals("") && dcontrasenia.getText().equals("")){

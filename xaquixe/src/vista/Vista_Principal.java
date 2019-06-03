@@ -40,6 +40,7 @@ public class Vista_Principal extends JFrame{
     private Boton btnempleados    = new Boton("Recursos H. ","image/recursosH1.png");
     private Boton btnventas       = new Boton("Ventas        ","image/venta1.png");
     private Boton btncerrar       = new Boton("Cerrar        ","image/cerrar1.png");
+    
     /**
     * configuracion de JFrame principal
     */

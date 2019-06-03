@@ -10,8 +10,8 @@ import java.sql.SQLException;
 public class Conexion {
     private String  host        = "localhost";
     private String  usuario     = "postgres";
-    private String  clave       = "lopez";
-    private int     puerto      = 5434;
+    private String  clave       = "manic";
+    private int     puerto      = 5432;
     private String  servidor    = "";
     private static Connection conexion  = null;
     private String baseDatos;
