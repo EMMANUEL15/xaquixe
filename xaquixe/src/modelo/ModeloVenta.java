@@ -138,7 +138,7 @@ public class ModeloVenta {
                 pstm.executeUpdate();
             }
             pstm.close();  
-         }catch(SQLException e){
+         }catch(Exception e){
              resulatdo = String.valueOf(e.getMessage());
          }
         return resulatdo;

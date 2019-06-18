@@ -36,7 +36,7 @@ public class ModeloCliente {
             pstm.execute();
             pstm.close();  
             
-        }catch(SQLException e){
+        }catch(Exception e){
             resulatdo =String.valueOf(e.getMessage());
         }
         return resulatdo;
@@ -52,7 +52,7 @@ public class ModeloCliente {
                 pstm.setString(1,rfc);                   
                 pstm.execute();
                 pstm.close(); 
-            }catch(SQLException e){
+            }catch(Exception e){
                 resulatdo = String.valueOf(e.getMessage());
             }
         return resulatdo;
@@ -73,7 +73,7 @@ public class ModeloCliente {
                     pstm.setString(5,rfc);
             pstm.executeUpdate();
             pstm.close();  
-         }catch(SQLException e){
+         }catch(Exception e){
              resulatdo = String.valueOf(e.getMessage());
          }
         return resulatdo;
